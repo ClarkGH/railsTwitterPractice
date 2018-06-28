@@ -1,46 +1,49 @@
 class ArticlesController < ApplicationController
-  def new 
+  def index
+    @articles = Article.all
   end
-
-  # Create new article C
+ 
+  def show
+    @article = Article.find(params[:id])
+  end
+ 
+  def new
+    @article = Article.new
+  end
+ 
+  def edit
+    @article = Article.find(params[:id])
+  end
+ 
   def create
     @article = Article.new(article_params)
-    # validation check in 'if'
+ 
     if @article.save
       redirect_to @article
     else
       render 'new'
     end
   end
-
-  # get edit page R
-  def edit
-    @article = Article.find(params[:id])
-  end
-
-  # Update article U
+ 
   def update
     @article = Article.find(params[:id])
-
+ 
     if @article.update(article_params)
       redirect_to @article
     else
       render 'edit'
     end
   end
-  
-  # show single R
-  def show
+ 
+  def destroy
     @article = Article.find(params[:id])
+    @article.destroy
+ 
+    redirect_to articles_path
   end
-
-  # show all R
-  def index
-    @articles = Article.all
-  end
-
+ 
   private
     def article_params
-      params.require(:article).permit(:title,:text)
+      params.require(:article).permit(:title, :text)
     end
 end
