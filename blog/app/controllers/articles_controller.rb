@@ -13,6 +13,22 @@ class ArticlesController < ApplicationController
     end
   end
 
+  # get edit page R
+  def edit
+    @article = Article.find(params[:id])
+  end
+
+  # Update article
+  def update
+    @article = Article.find(params[:id])
+
+    if @article.update(article_params)
+      redirect_to @article
+    else
+      render 'edit'
+    end
+  end
+  
   # show single R
   def show
     @article = Article.find(params[:id])
