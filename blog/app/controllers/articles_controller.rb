@@ -5,9 +5,12 @@ class ArticlesController < ApplicationController
   # Create new article C
   def create
     @article = Article.new(article_params)
-
-    @article.save
-    redirect_to @article
+    # validation check in 'if'
+    if @article.save
+      redirect_to @article
+    else
+      render 'new'
+    end
   end
 
   # show single R
